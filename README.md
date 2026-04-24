@@ -79,3 +79,149 @@ export default function App() {
     </NavigationContainer>
   );
 }
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+const LoginScreen = () => {
+    const navigation = useNavigation();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleLogin = () => {
+        // Handle login logic
+    };
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Login</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+            />
+            <Button title="Login" onPress={handleLogin} />
+            <Text style={styles.registerLink} onPress={() => navigation.navigate('Register')}> 
+                Don't have an account? Register
+            </Text>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        padding: 16,
+    },
+    title: {
+        fontSize: 24,
+        marginBottom: 20,
+        textAlign: 'center',
+    },
+    input: {
+        height: 40,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        marginBottom: 10,
+        padding: 10,
+    },
+    registerLink: {
+        marginTop: 15,
+        textAlign: 'center',
+        color: '#007BFF',
+    },
+});
+cd finansku
+npm install
+npx expo start
+export default LoginScreen;import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+
+export default function RegisterScreen({ navigation }) {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const handleRegister = () => {
+        if (!name || !email || !password || !confirmPassword) {
+            Alert.alert('Error', 'Semua field harus diisi!');
+            return;
+        }
+        if (password !== confirmPassword) {
+            Alert.alert('Error', 'Password tidak cocok!');
+            return;
+        }
+        Alert.alert('Berhasil', 'Akun berhasil dibuat! Silakan login.');
+        navigation.navigate('Login');
+    };
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Buat Akun Baru</Text>
+            <TextInput style={styles.input} placeholder="Nama Lengkap" value={name} onChangeText={setName} />
+            <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" />
+            <TextInput style={styles.input} placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry />
+            <TextInput style={styles.input} placeholder="Konfirmasi Password" value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry />
+            <TouchableOpacity style={styles.button} onPress={handleRegister}>
+                <Text style={styles.buttonText}>Daftar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                <Text style={styles.link}>Sudah punya akun? Login di sini</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        backgroundColor: '#fff',
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 30,
+        color: '#2E7D32',
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        padding: 15,
+        marginBottom: 15,
+        borderRadius: 8,
+        backgroundColor: '#f9f9f9',
+    },
+    button: {
+        backgroundColor: '#2E7D32',
+        padding: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    link: {
+        color: '#2E7D32',
+        textAlign: 'center',
+        marginTop: 20,
+        textDecorationLine: 'underline',
+    },
+});
